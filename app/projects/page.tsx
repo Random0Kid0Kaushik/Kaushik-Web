@@ -22,7 +22,7 @@ interface Projects {
 }
 
 async function getProjects(): Promise<Projects[]> {
-  const res = await fetch("/api/contact/projects")
+  const res = await fetch("/api/projects")
 
   if (!res.ok) {
     throw new Error("Failed to fetch projects")
