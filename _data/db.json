@@ -1,0 +1,52 @@
+{
+    "projects": [
+        {
+            "id": 1,
+            "name": "EMF Website",
+            "slug": "emf-website",
+            "description": "The offical website for EMF, built using WordPress",
+            "url": "",
+            "live": false
+        },
+        {
+            "id": 2,
+            "name": "Smart Assist",
+            "slug": "smart-assist",
+            "description": "A chatbot for SmartFleet built using Copilot Studio and Microsoft Services",
+            "url": "",
+            "live": false
+        },
+        {
+            "id": 3,
+            "name": "Floral Haven",
+            "slug": "floral-haven",
+            "description": "A floral e-commerce website built using Flask",
+            "url": "",
+            "live": true
+        },
+        {
+            "id": 4,
+            "name": "MushroomPocket",
+            "slug": "mushroompocket",
+            "description": "A console game built using C# and python, where you collect creatures.",
+            "url": "",
+            "live": false
+        },
+        {
+            "id": 5,
+            "name": "Image Detector",
+            "slug": "image-detector",
+            "description": "A simple image detection model built using Hugging Face",
+            "url": "https://huggingface.co/spaces/IT3103-2025S1/233050P",
+            "live": true
+        },
+        {
+            "id": 6,
+            "name": "Medimate",
+            "slug": "medimate",
+            "description": "A healthcare application for managing medication schedules built using Google Dialogflow.",
+            "url": "",
+            "live": true
+        }
+    ]
+}
