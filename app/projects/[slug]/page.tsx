@@ -24,7 +24,7 @@ export default function ProjectPage() {
 
   useEffect(() => {
     async function fetchProject() {
-      const res = await fetch("http://localhost:4000/projects")
+      const res = await fetch("/api/contact/projects/projects")
 
       const data: Project[] = await res.json()
 

@@ -20,7 +20,7 @@ interface Projects {
 }
 
 async function getProjects(): Promise<Projects[]> {
-  const res = await fetch("http://localhost:4000/projects")
+  const res = await fetch("/api/contact/projects/projects")
 
   if (!res.ok) {
     throw new Error("Failed to fetch projects")
