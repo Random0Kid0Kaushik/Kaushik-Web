@@ -15,6 +15,7 @@ interface Projects {
   id: number
   name: string
   description: string
+  slug: string
   url: string
   live: boolean
 }
@@ -117,7 +118,7 @@ export default function HomePage() {
 
                 <CardFooter className="flex justify-between items-center">
                   <Button asChild size="sm">
-                    <Link href={project.url}>
+                    <Link href={project.slug}>
                       View More
                     </Link>
                   </Button>
