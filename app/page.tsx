@@ -118,7 +118,7 @@ export default function HomePage() {
 
                 <CardFooter className="flex justify-between items-center">
                   <Button asChild size="sm">
-                    <Link href={`/projects/${project.slug}`}>
+                    <Link href={`/projects`}>
                       View More
                     </Link>
                   </Button>
