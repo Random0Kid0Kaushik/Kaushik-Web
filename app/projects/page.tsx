@@ -1,5 +1,8 @@
+"use client" // only needed if you want client interactivity
+
 import Link from "next/link"
-import { getAllProjects, Project } from "@/lib/projects"
+import { ProjectCard } from "@/lib/projectCard"
+import projectsData from "@/_data/db.json" // adjust path if needed
 
 import { Button } from "@/components/ui/button"
 import {
@@ -11,7 +14,7 @@ import {
 } from "@/components/ui/card"
 
 export default function ProjectsPage() {
-  const projects: Project[] = getAllProjects()
+  const projects: ProjectCard[] = projectsData.projects
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-500">
@@ -38,22 +41,17 @@ export default function ProjectsPage() {
             >
 
               <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
+                <CardTitle>{project.name}</CardTitle>
               </CardHeader>
 
               <CardContent>
                 <p className="text-muted-foreground">{project.description}</p>
-
-                {project.tech && project.tech.length > 0 && (
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Tech: {project.tech.join(", ")}
-                  </p>
-                )}
               </CardContent>
 
               <CardFooter className="flex justify-between items-center">
                 <Button asChild size="sm">
-                  <Link href={`/projects/${project.id}`}>Documentation</Link>
+                  {/* link to the [slug] page if needed, otherwise just `/projects` */}
+                  <Link href={`/projects/${project.slug}`}>Documentation</Link>
                 </Button>
 
                 {project.live && (

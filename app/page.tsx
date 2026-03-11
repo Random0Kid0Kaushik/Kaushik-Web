@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
@@ -8,12 +10,11 @@ import {
   CardContent,
 } from "@/components/ui/card"
 
-import { getAllProjects, Project } from "@/lib/projects"
-
-type HomeProject = Omit<Project, "slug">
+import { ProjectCard } from "@/lib/projectCard"
+import projectsData from "@/_data/db.json" // adjust path if needed
 
 export default function HomePage() {
-  const projects: HomeProject[] = getAllProjects()
+  const projects: ProjectCard[] = projectsData.projects // <-- use JSON array directly
 
   return (
     <div className="bg-background text-foreground transition-colors duration-500">
@@ -32,9 +33,7 @@ export default function HomePage() {
             </h3>
 
             <Button asChild size="lg">
-              <Link href="#projects">
-                View My Work
-              </Link>
+              <Link href="#projects">View My Work</Link>
             </Button>
           </div>
 
@@ -58,51 +57,54 @@ export default function HomePage() {
       <section id="projects" className="py-32 px-6 max-w-6xl mx-auto space-y-12">
         <h2 className="text-3xl font-bold">Projects</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
-              <Card key={project.id} className="hover:shadow-lg transition-shadow duration-300">
-                <CardHeader>
-                  <CardTitle>{project.title}</CardTitle>
-                </CardHeader>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <Card key={project.id} className="hover:shadow-lg transition-shadow duration-300">
 
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    {project.description}
-                  </p>
-                </CardContent>
+              <CardHeader>
+                <CardTitle>{project.name}</CardTitle>
+              </CardHeader>
 
-                <CardFooter className="flex justify-between items-center">
-                  <Button asChild size="sm">
-                    <Link href={`/projects`}>
-                      View More
-                    </Link>
-                  </Button>
+              <CardContent>
+                <p className="text-muted-foreground">{project.description}</p>
+              </CardContent>
 
-                  {project.live && (
-                    <span className="text-green-500 text-sm font-medium">
-                      Live
-                    </span>
-                  )}
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+              <CardFooter className="flex justify-between items-center">
+                <Button asChild size="sm">
+                  <Link href={`/projects/${project.slug}`}>Documentation</Link>
+                </Button>
+
+                {project.live && (
+                  <span className="text-green-500 text-sm font-medium">Live</span>
+                )}
+
+                {!project.live && project.url && (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 text-sm font-medium hover:underline"
+                  >
+                    Visit
+                  </a>
+                )}
+              </CardFooter>
+
+            </Card>
+          ))}
+        </div>
       </section>
 
       {/* RESUME */}
       <section id="resume" className="py-32 px-6 max-w-4xl mx-auto space-y-6 text-center">
         <h2 className="text-3xl font-bold">Resume</h2>
-        <Button size="lg">
-          Download Resume
-        </Button>
+        <Button size="lg">Download Resume</Button>
       </section>
 
       {/* CONTACT */}
       <section id="contact" className="py-32 px-6 max-w-4xl mx-auto space-y-6 text-center">
         <h2 className="text-3xl font-bold">Contact</h2>
-        <p className="text-muted-foreground">
-          Let’s build something meaningful together.
-        </p>
+        <p className="text-muted-foreground">Let’s build something meaningful together.</p>
       </section>
 
     </div>
