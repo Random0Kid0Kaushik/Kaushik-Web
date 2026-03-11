@@ -62,7 +62,7 @@ export default function HomePage() {
             {projects.map((project) => (
               <Card key={project.id} className="hover:shadow-lg transition-shadow duration-300">
                 <CardHeader>
-                  <CardTitle>{project.name}</CardTitle>
+                  <CardTitle>{project.title}</CardTitle>
                 </CardHeader>
 
                 <CardContent>
