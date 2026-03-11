@@ -1,55 +1,27 @@
-import fs from "fs"
-import path from "path"
-import matter from "gray-matter"
+// lib/projects.ts
+import projectsData from "@/_data/db.json"
 
-const projectsDirectory = path.join(process.cwd(), "content/projects")
-
-export interface ProjectFrontmatter {
+export interface Project {
   id: number
-  title: string
+  name: string
+  slug: string
   description: string
-  github?: string
-  demo?: string
-  tech?: string[]
-  live: boolean
   url: string
+  live: boolean
+  tech?: string[]
 }
 
-export interface Project extends ProjectFrontmatter {
-  slug: string
-}
-
-export function getProjectSlugs() {
-  return fs.readdirSync(projectsDirectory)
-}
-
-export function getProjectBySlug(slug: string): {
-  slug: string
-  frontmatter: ProjectFrontmatter
-  content: string
-} {
-  const realSlug = slug.replace(/\.md$/, "")
-  const fullPath = path.join(projectsDirectory, `${realSlug}.md`)
-
-  const fileContents = fs.readFileSync(fullPath, "utf8")
-  const { data, content } = matter(fileContents)
-
-  return {
-    slug: realSlug,
-    frontmatter: data as ProjectFrontmatter,
-    content,
-  }
-}
-
+// Return all projects
 export function getAllProjects(): Project[] {
-  const slugs = getProjectSlugs()
+  return projectsData.projects
+}
 
-  return slugs.map((slug) => {
-    const { frontmatter } = getProjectBySlug(slug)
+// Return single project by slug
+export function getProjectBySlug(slug: string): Project | null {
+  return projectsData.projects.find((p) => p.slug === slug) || null
+}
 
-    return {
-      slug: slug.replace(".md", ""),
-      ...frontmatter,
-    }
-  })
+// Return all slugs
+export function getProjectSlugs(): string[] {
+  return projectsData.projects.map((p) => p.slug)
 }

@@ -1,115 +1,56 @@
+// app/projects/[slug]/page.tsx
 import Link from "next/link"
-import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { getProjectBySlug, getProjectSlugs } from "@/lib/projects"
-import { remark } from "remark"
-import html from "remark-html"
+import { getProjectBySlug, getProjectSlugs, Project } from "@/lib/projects"
 
 interface ProjectPageProps {
-  params: {
-    slug: string
-  }
+  params: { slug: string }
 }
 
-/* Generate static pages for all projects */
+// Generate static pages
 export async function generateStaticParams() {
   const slugs = getProjectSlugs()
-
-  return slugs.map((slug) => ({
-    slug: slug.replace(".md", ""),
-  }))
+  return slugs.map((slug) => ({ slug }))
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
+export default function ProjectPage({ params }: ProjectPageProps) {
+  const project: Project | null = getProjectBySlug(params.slug)
 
-  let project
-
-  try {
-    project = getProjectBySlug(params.slug)
-  } catch {
-    return notFound()
-  }
-
-  const processedContent = await remark()
-    .use(html)
-    .process(project.content)
-
-  const contentHtml = processedContent.toString()
-
-  const sections = [
-    { title: "Overview", id: "overview" },
-    { title: "Tech Stack", id: "tech-stack" },
-    { title: "Screenshots", id: "screenshots" },
-    { title: "Architecture", id: "architecture" },
-    { title: "Details", id: "details" },
-  ]
+  if (!project) return <div>Project not found</div>
 
   return (
     <div className="flex min-h-screen">
-
-      {/* Sidebar */}
       <aside className="w-64 border-r px-6 py-20">
-
-        <h2 className="font-semibold mb-6">
-          Project Sections
-        </h2>
-
+        <h2 className="font-semibold mb-6">Project Sections</h2>
         <nav className="flex flex-col gap-3">
-          {sections.map((section) => (
-            <a
-              key={section.id}
-              href={`#${section.id}`}
-              className="text-sm text-muted-foreground hover:text-foreground transition"
-            >
-              {section.title}
-            </a>
-          ))}
+          <a href="#overview" className="text-sm text-muted-foreground hover:text-foreground transition">Overview</a>
+          <a href="#tech-stack" className="text-sm text-muted-foreground hover:text-foreground transition">Tech Stack</a>
+          <a href="#screenshots" className="text-sm text-muted-foreground hover:text-foreground transition">Screenshots</a>
+          <a href="#architecture" className="text-sm text-muted-foreground hover:text-foreground transition">Architecture</a>
+          <a href="#details" className="text-sm text-muted-foreground hover:text-foreground transition">Details</a>
         </nav>
-
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 max-w-4xl mx-auto px-10 py-20 space-y-8">
-
         <Button asChild variant="outline">
-          <Link href="/projects">
-            ← Back to Projects
-          </Link>
+          <Link href="/projects">← Back to Projects</Link>
         </Button>
 
-        <h1 className="text-4xl font-bold">
-          {project.frontmatter.title}
-        </h1>
+        <h1 className="text-4xl font-bold">{project.name}</h1>
+        <p className="text-muted-foreground">{project.description}</p>
 
-        <p className="text-muted-foreground">
-          {project.frontmatter.description}
-        </p>
+        {project.live && <span className="text-green-500 font-medium">● Live Project</span>}
+        {!project.live && project.url && (
+          <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-sm font-medium hover:underline">
+            Visit Project
+          </a>
+        )}
 
-        <div className="flex gap-4">
-
-          {project.frontmatter.github && (
-            <Button asChild>
-              <Link href={project.frontmatter.github}>
-                View Source
-              </Link>
-            </Button>
-          )}
-
-          {project.frontmatter.live && (
-            <span className="text-green-500 font-medium">
-              ● Live Project
-            </span>
-          )}
-
+        {/* Placeholder content */}
+        <div className="mt-6 prose dark:prose-invert">
+          <p>More project details can go here.</p>
         </div>
-
-        <article
-          className="prose prose-lg dark:prose-invert"
-          dangerouslySetInnerHTML={{ __html: contentHtml }}
-        />
-
       </main>
-
     </div>
   )
 }
