@@ -1,16 +1,26 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Sidebar } from "@/components/ui/sidebar"
-import { getProjectBySlug } from "@/lib/projects"
+import { getProjectBySlug, getProjectSlugs } from "@/lib/projects"
 import { remark } from "remark"
 import html from "remark-html"
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
+interface ProjectPageProps {
+  params: {
+    slug: string
+  }
+}
+
+/* Generate static pages for all projects */
+export async function generateStaticParams() {
+  const slugs = getProjectSlugs()
+
+  return slugs.map((slug) => ({
+    slug: slug.replace(".md", ""),
+  }))
+}
+
+export default async function ProjectPage({ params }: ProjectPageProps) {
 
   let project
 
@@ -45,7 +55,6 @@ export default async function ProjectPage({
         </h2>
 
         <nav className="flex flex-col gap-3">
-
           {sections.map((section) => (
             <a
               key={section.id}
@@ -55,7 +64,6 @@ export default async function ProjectPage({
               {section.title}
             </a>
           ))}
-
         </nav>
 
       </aside>

@@ -12,7 +12,7 @@ import {
 
 interface Projects {
   id: number
-  name: string
+  title: string
   description: string
   slug: string
   url: string
@@ -56,7 +56,7 @@ export default function ProjectsPage() {
             >
 
               <CardHeader>
-                <CardTitle>{project.name}</CardTitle>
+                <CardTitle>{project.title}</CardTitle>
               </CardHeader>
 
               <CardContent>
