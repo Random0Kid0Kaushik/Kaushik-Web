@@ -8,7 +8,13 @@ export interface Project {
   description: string
   url: string
   live: boolean
+
   tech?: string[]
+
+  overview?: string
+  techStack?: string[]
+  architecture?: string
+  details?: string
 }
 
 // Return all projects

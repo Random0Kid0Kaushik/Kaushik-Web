@@ -46,10 +46,44 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           </a>
         )}
 
-        {/* Placeholder content */}
-        <div className="mt-6 prose dark:prose-invert">
-          <p>More project details can go here.</p>
-        </div>
+        {/* Overview */}
+        <section id="overview">
+          <h2 className="text-2xl font-semibold mt-10 mb-4">Overview</h2>
+          <p className="text-muted-foreground">
+            {project.overview || "Overview coming soon."}
+          </p>
+        </section>
+
+        {/* Tech Stack */}
+        <section id="tech-stack">
+          <h2 className="text-2xl font-semibold mt-10 mb-4">Tech Stack</h2>
+
+          {project.techStack ? (
+            <ul className="list-disc pl-6 text-muted-foreground">
+              {project.techStack.map((tech) => (
+                <li key={tech}>{tech}</li>
+            ))}
+            </ul>
+          ) : (
+            <p className="text-muted-foreground">Tech stack information coming soon.</p>
+          )}
+        </section>
+
+        {/* Architecture */}
+        <section id="architecture">
+          <h2 className="text-2xl font-semibold mt-10 mb-4">Architecture</h2>
+            <p className="text-muted-foreground">
+              {project.architecture || "Architecture details coming soon."}
+            </p>
+        </section>
+
+        {/* Details */}
+        <section id="details">
+          <h2 className="text-2xl font-semibold mt-10 mb-4">Details</h2>
+          <p className="text-muted-foreground">
+            {project.details || "Additional details coming soon."}
+          </p>
+        </section>
       </main>
     </div>
   )

@@ -6,7 +6,23 @@
             "slug": "emf-website",
             "description": "The offical website for EMF, built using WordPress",
             "url": "",
-            "live": false
+            "live": false,
+
+            "tech": ["WordPress", "HTML", "CSS", "JavaScript"],
+
+            "overview": "We built the website using WordPress as our main content management system, along with custom development work mainly in HTML, CSS, and JavaScript. At first we used Elementor for quick layout prototyping but later removed it because it slowed down performance.",
+
+            "techStack": [
+                "WordPress",
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "Figma"
+            ],
+
+            "architecture": "The website runs on a WordPress CMS with custom themes and frontend scripts. The design prototypes were created in Figma and then converted into responsive components.",
+
+            "details": "During this project I helped develop website content and create new pages for the revamped site. I focused on converting Figma designs into functional web pages while ensuring responsiveness and consistency across devices."
         },
         {
             "id": 2,
