@@ -15,6 +15,7 @@ export interface Project {
   techStack?: string[]
   architecture?: string
   details?: string
+  challenges?: string
 }
 
 // Return all projects

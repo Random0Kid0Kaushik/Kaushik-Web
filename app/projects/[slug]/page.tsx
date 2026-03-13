@@ -1,10 +1,11 @@
-// app/projects/[slug]/page.tsx
+export const dynamic = "force-dynamic"
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { getProjectBySlug, getProjectSlugs, Project } from "@/lib/projects"
 
 interface ProjectPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 // Generate static pages
@@ -13,8 +14,10 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }))
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project: Project | null = getProjectBySlug(params.slug)
+export default async function ProjectPage({ params }: ProjectPageProps) {
+
+  const { slug } = await params
+  const project: Project | null = getProjectBySlug(slug)
 
   if (!project) return <div>Project not found</div>
 
@@ -25,7 +28,6 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         <nav className="flex flex-col gap-3">
           <a href="#overview" className="text-sm text-muted-foreground hover:text-foreground transition">Overview</a>
           <a href="#tech-stack" className="text-sm text-muted-foreground hover:text-foreground transition">Tech Stack</a>
-          <a href="#screenshots" className="text-sm text-muted-foreground hover:text-foreground transition">Screenshots</a>
           <a href="#architecture" className="text-sm text-muted-foreground hover:text-foreground transition">Architecture</a>
           <a href="#details" className="text-sm text-muted-foreground hover:text-foreground transition">Details</a>
         </nav>
@@ -39,9 +41,17 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         <h1 className="text-4xl font-bold">{project.name}</h1>
         <p className="text-muted-foreground">{project.description}</p>
 
-        {project.live && <span className="text-green-500 font-medium">● Live Project</span>}
+        {project.live && (
+          <span className="text-green-500 font-medium">● Live Project</span>
+        )}
+
         {!project.live && project.url && (
-          <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-sm font-medium hover:underline">
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 text-sm font-medium hover:underline"
+          >
             Visit Project
           </a>
         )}
@@ -62,19 +72,21 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             <ul className="list-disc pl-6 text-muted-foreground">
               {project.techStack.map((tech) => (
                 <li key={tech}>{tech}</li>
-            ))}
+              ))}
             </ul>
           ) : (
-            <p className="text-muted-foreground">Tech stack information coming soon.</p>
+            <p className="text-muted-foreground">
+              Tech stack information coming soon.
+            </p>
           )}
         </section>
 
         {/* Architecture */}
         <section id="architecture">
           <h2 className="text-2xl font-semibold mt-10 mb-4">Architecture</h2>
-            <p className="text-muted-foreground">
-              {project.architecture || "Architecture details coming soon."}
-            </p>
+          <p className="text-muted-foreground">
+            {project.architecture || "Architecture details coming soon."}
+          </p>
         </section>
 
         {/* Details */}

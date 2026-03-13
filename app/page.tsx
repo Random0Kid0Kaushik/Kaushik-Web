@@ -25,7 +25,7 @@ export default function HomePage() {
 
           <div className="space-y-6">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              Hello! I am Kaushik!
+              Hello! I&apos;m Kaushik!
             </h1>
 
             <h3 className="text-xl md:text-2xl font-medium text-muted-foreground">
@@ -104,7 +104,19 @@ export default function HomePage() {
       {/* CONTACT */}
       <section id="contact" className="py-32 px-6 max-w-4xl mx-auto space-y-6 text-center">
         <h2 className="text-3xl font-bold">Contact</h2>
-        <p className="text-muted-foreground">Let’s build something meaningful together.</p>
+        <p className="text-muted-foreground">Let&apos;s build something meaningful together.</p>
+        {/*Add icons leading to Github, LinkedIn, etc.*/}
+        <div className="flex justify-center gap-6 mt-6">
+          <a href="https://github.com/Random0Kid0Kaushik" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition">
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/kaushik-karthikeyan-696038273/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition">
+            LinkedIn
+          </a>
+          <a href="mailto:kaushik@example.com" className="text-muted-foreground hover:text-foreground transition">
+            Email
+          </a>
+        </div>
       </section>
 
     </div>

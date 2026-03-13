@@ -22,7 +22,8 @@
 
             "architecture": "The website runs on a WordPress CMS with custom themes and frontend scripts. The design prototypes were created in Figma and then converted into responsive components.",
 
-            "details": "During this project I helped develop website content and create new pages for the revamped site. I focused on converting Figma designs into functional web pages while ensuring responsiveness and consistency across devices."
+            "details": "During this project I helped develop website content and create new pages for the revamped site. I focused on converting Figma designs into functional web pages while ensuring responsiveness and consistency across devices.",
+            "challenges": "One challenge was Elementor causing slow load times. We removed it and replaced it with custom HTML and CSS layouts to improve performance."
         },
         {
             "id": 2,
