@@ -30,6 +30,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <a href="#tech-stack" className="text-sm text-muted-foreground hover:text-foreground transition">Tech Stack</a>
           <a href="#architecture" className="text-sm text-muted-foreground hover:text-foreground transition">Architecture</a>
           <a href="#details" className="text-sm text-muted-foreground hover:text-foreground transition">Details</a>
+          <a href="#challenges" className="text-sm text-muted-foreground hover:text-foreground transition">Challenges</a>
         </nav>
       </aside>
 
@@ -94,6 +95,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <h2 className="text-2xl font-semibold mt-10 mb-4">Details</h2>
           <p className="text-muted-foreground">
             {project.details || "Additional details coming soon."}
+          </p>
+        </section>
+
+        {/* Challenges */}
+        <section id="challenges">
+          <h2 className="text-2xl font-semibold mt-10 mb-4">Challenges</h2>
+          <p className="text-muted-foreground">
+            {project.challenges || "Challenge details coming soon."}
           </p>
         </section>
       </main>
